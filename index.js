@@ -16,12 +16,16 @@ app.use(cors());
 app.get('/sharing_day', async (req, res) => {
     const response = await DataSchema.find();
 
+    if (response[0] === undefined) {
+        return;
+    }
+
     if (response[0].data === 'ligar') {
         res.status(200).send({ response });
     } else if (response[0].data === 'desligar') {
         res.status(202).send({ response });
     } else {
-        res.status(500).send('Server error!');
+        res.status(500).send('Server error!')
     }
 });
 
